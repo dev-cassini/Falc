@@ -1,3 +1,5 @@
+using Falc.Communications.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,7 +7,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services
+    .AddInfrastructure(builder.Configuration);
+
 var app = builder.Build();
+
+app.Services
+    .UseInfrastructure();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
