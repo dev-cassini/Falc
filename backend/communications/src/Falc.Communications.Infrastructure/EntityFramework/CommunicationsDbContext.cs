@@ -1,5 +1,6 @@
 using System.Reflection;
 using Falc.Communications.Domain.Model;
+using Falc.Communications.Infrastructure.MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -13,7 +14,9 @@ public class CommunicationsDbContext(DbContextOptions<CommunicationsDbContext> o
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        modelBuilder
+            .ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly())
+            .AddMassTransitOutbox();
 
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
         {

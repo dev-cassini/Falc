@@ -1,4 +1,5 @@
 using Falc.Communications.Infrastructure.EntityFramework;
+using Falc.Communications.Infrastructure.MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,7 +12,8 @@ public static class Extensions
         IConfiguration configuration)
     {
         serviceCollection
-            .AddEntityFramework(configuration);
+            .AddEntityFramework(configuration)
+            .AddMassTransit(configuration);
 
         return serviceCollection;
     }
