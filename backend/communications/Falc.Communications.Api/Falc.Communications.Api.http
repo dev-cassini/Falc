@@ -1,0 +1,6 @@
+@Falc.Communications.Api_HostAddress = http://localhost:5189
+
+GET {{Falc.Communications.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
