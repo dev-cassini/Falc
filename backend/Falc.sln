@@ -19,6 +19,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Falc.Communications.Applica
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Falc.Communications.Infrastructure", "communications\src\Falc.Communications.Infrastructure\Falc.Communications.Infrastructure.csproj", "{23D192D9-1A5E-4575-909D-FA4F2EF28710}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution-items", "solution-items", "{3AD9F7D7-C3A8-43EA-B8F5-087506F40B46}"
+    ProjectSection(SolutionItems) = preProject
+		../.gitignore = ../.gitignore
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
