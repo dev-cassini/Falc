@@ -38,9 +38,9 @@ internal static class Extensions
 
     internal static ModelBuilder AddMassTransitOutbox(this ModelBuilder modelBuilder)
     {
-        modelBuilder.AddInboxStateEntity();
-        modelBuilder.AddOutboxMessageEntity();
-        modelBuilder.AddOutboxStateEntity();
+        modelBuilder.AddInboxStateEntity(builder => builder.Metadata.SetSchema(CommunicationsDbContext.Schema));
+        modelBuilder.AddOutboxMessageEntity(builder => builder.Metadata.SetSchema(CommunicationsDbContext.Schema));
+        modelBuilder.AddOutboxStateEntity(builder => builder.Metadata.SetSchema(CommunicationsDbContext.Schema));
 
         return modelBuilder;
     }
