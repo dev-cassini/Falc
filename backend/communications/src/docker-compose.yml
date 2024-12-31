@@ -1,0 +1,23 @@
+﻿services:
+  falc-communications-api:
+    build:
+      context: .
+      dockerfile: Falc.Communications.Api/Dockerfile
+    container_name: falc-communications-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - 'ConnectionStrings__Postgres=Host=postgres;Username=postgres;Password=password;Database=Falc.Platform;Include Error Detail=true'
+      - 'ConnectionStrings__Rmq=amqp://guest:guest@rmq'
+    networks:
+      - falc
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.falc-communications-api.rule=Host(`api.falc.local/communications/api`)"
+      - "traefik.http.routers.falc-communications-api.tls=true"
+      - "traefik.tags=falc"
+      - "traefik.docker.network=falc"
+
+networks:
+  falc:
+    external: true
