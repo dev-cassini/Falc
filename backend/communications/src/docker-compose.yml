@@ -1,9 +1,13 @@
-﻿services:
-  falc-communications-api:
+﻿version: '3.5'
+
+name: falc
+
+services:
+  communications-api:
     build:
       context: .
       dockerfile: Falc.Communications.Api/Dockerfile
-    container_name: falc-communications-api
+    container_name: communications-api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
