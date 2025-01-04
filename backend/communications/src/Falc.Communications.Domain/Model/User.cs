@@ -1,5 +1,6 @@
 using Falc.Communications.Domain.Tooling.Abstractions;
 using Falc.Communications.Domain.Validation.Validators;
+using Falc.Communications.Domain.ValueObjects;
 
 namespace Falc.Communications.Domain.Model;
 
@@ -19,15 +20,22 @@ public class User
     /// Email address.
     /// </summary>
     public string EmailAddress { get; }
+    
+    /// <summary>
+    /// Marketing preferences.
+    /// </summary>
+    public MarketingPreferences MarketingPreferences { get; }
 
     public User(
         Guid id, 
         string emailAddress,
+        MarketingPreferences marketingPreferences,
         IDateTimeProvider dateTimeProvider)
     {
         Id = id;
         CreationTimestampUtc = dateTimeProvider.UtcNow;
         EmailAddress = emailAddress.Trim().ToLower();
+        MarketingPreferences = marketingPreferences;
         
         new UserValidator(this).Validate();
     }

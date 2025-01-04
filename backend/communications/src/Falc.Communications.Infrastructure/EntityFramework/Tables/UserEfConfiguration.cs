@@ -13,5 +13,7 @@ public class UserEfConfiguration : IEntityTypeConfiguration<User>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.EmailAddress);
         builder.Property(x => x.CreationTimestampUtc);
+
+        builder.OwnsOne(x => x.MarketingPreferences);
     }
 }
