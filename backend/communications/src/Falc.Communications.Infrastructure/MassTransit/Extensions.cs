@@ -1,4 +1,3 @@
-using System.Reflection;
 using Falc.Communications.Infrastructure.EntityFramework;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
@@ -30,7 +29,7 @@ internal static class Extensions
                         .UseBusOutbox();
                 });
                 
-                configurator.AddConsumers(Assembly.GetExecutingAssembly());
+                configurator.AddConsumers(typeof(Marker).Assembly);
             });
         
         return serviceCollection;
@@ -38,9 +37,9 @@ internal static class Extensions
 
     internal static ModelBuilder AddMassTransitOutbox(this ModelBuilder modelBuilder)
     {
-        modelBuilder.AddInboxStateEntity();
-        modelBuilder.AddOutboxMessageEntity();
-        modelBuilder.AddOutboxStateEntity();
+        modelBuilder.AddInboxStateEntity(builder => builder.Metadata.SetSchema(CommunicationsDbContext.Schema));
+        modelBuilder.AddOutboxMessageEntity(builder => builder.Metadata.SetSchema(CommunicationsDbContext.Schema));
+        modelBuilder.AddOutboxStateEntity(builder => builder.Metadata.SetSchema(CommunicationsDbContext.Schema));
 
         return modelBuilder;
     }

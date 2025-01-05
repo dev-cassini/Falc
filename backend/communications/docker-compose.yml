@@ -1,6 +1,0 @@
-﻿services:
-  falc.communications.api:
-    image: falc.communications.api
-    build:
-      context: .
-      dockerfile: Falc.Communications.Api/Dockerfile

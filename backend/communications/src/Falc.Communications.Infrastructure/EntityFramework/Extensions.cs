@@ -1,4 +1,6 @@
+using Falc.Communications.Application.Queries;
 using Falc.Communications.Domain.Repositories;
+using Falc.Communications.Infrastructure.EntityFramework.Queries;
 using Falc.Communications.Infrastructure.EntityFramework.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -21,7 +23,8 @@ internal static class Extensions
                     optionsBuilder.MigrationsHistoryTable("__EFMigrationsHistory", CommunicationsDbContext.Schema);
                 });
             })
-            .AddEfRepositories();
+            .AddEfRepositories()
+            .AddEfQueries();
 
         return serviceCollection;
     }
@@ -39,6 +42,14 @@ internal static class Extensions
     {
         serviceCollection
             .AddScoped<IUserRepository, EfUserRepository>();
+
+        return serviceCollection;
+    }
+
+    private static IServiceCollection AddEfQueries(this IServiceCollection serviceCollection)
+    {
+        serviceCollection
+            .AddScoped<GetUser.IQueryHandler, EfGetUserQueryHandler>();
 
         return serviceCollection;
     }

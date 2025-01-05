@@ -3,6 +3,7 @@ using System;
 using Falc.Communications.Infrastructure.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Falc.Communications.Infrastructure.EntityFramework.Migrations
 {
     [DbContext(typeof(CommunicationsDbContext))]
-    partial class CommunicationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241231191356_UpdateMassTransitOutboxSchema")]
+    partial class UpdateMassTransitOutboxSchema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -198,34 +201,6 @@ namespace Falc.Communications.Infrastructure.EntityFramework.Migrations
                     b.HasIndex("Created");
 
                     b.ToTable("OutboxState", "communications");
-                });
-
-            modelBuilder.Entity("Falc.Communications.Domain.Model.User", b =>
-                {
-                    b.OwnsOne("Falc.Communications.Domain.ValueObjects.MarketingPreferences", "MarketingPreferences", b1 =>
-                        {
-                            b1.Property<Guid>("UserId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<bool>("Email")
-                                .HasColumnType("boolean");
-
-                            b1.Property<bool>("Phone")
-                                .HasColumnType("boolean");
-
-                            b1.Property<bool>("Sms")
-                                .HasColumnType("boolean");
-
-                            b1.HasKey("UserId");
-
-                            b1.ToTable("Users", "communications");
-
-                            b1.WithOwner()
-                                .HasForeignKey("UserId");
-                        });
-
-                    b.Navigation("MarketingPreferences")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("MassTransit.EntityFrameworkCoreIntegration.OutboxMessage", b =>
