@@ -1,10 +1,23 @@
+using Falc.Communications.Api.Endpoints;
+using Falc.Communications.Api.Tooling;
 using Falc.Communications.Domain;
 using Falc.Communications.Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services
+    .AddEndpointsApiExplorer()
+    .AddSwaggerGen();
+
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer();
+
+builder.Services.AddAuthorization();
+
+JsonWebTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
 builder.Services
     .AddDomainTooling()
@@ -12,15 +25,16 @@ builder.Services
 
 var app = builder.Build();
 
+DockerHelpers.UpdateCaCertificates();
+
+app.RegisterEndpoints();
+app
+    .UseAuthentication()
+    .UseRouting()
+    .UseAuthorization();
+
 app.Services
     .UseInfrastructure();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 
 app.UseHttpsRedirection();
 
