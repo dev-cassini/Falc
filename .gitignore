@@ -399,3 +399,5 @@ FodyWeavers.xsd
 *.idea
 
 **/NuGet.Config
+
+shared/certs/
