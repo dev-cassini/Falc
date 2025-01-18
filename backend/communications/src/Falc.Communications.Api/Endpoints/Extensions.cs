@@ -7,7 +7,8 @@ public static class Extensions
         webApplication.UsePathBase("/api/communications");
         
         webApplication
-            .RegisterGetMyUserEndpoint();
+            .RegisterGetMyUserEndpoint()
+            .RegisterGetUserEndpoint();
 
         return webApplication;
     }
