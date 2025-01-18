@@ -3,6 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Falc.Communications.Api", "communications\src\Falc.Communications.Api\Falc.Communications.Api.csproj", "{0A6DB6A8-B961-421E-896E-88F5FAD9A894}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "communications", "communications", "{2BD31107-E486-4E10-BF6A-427444D584F8}"
+	ProjectSection(SolutionItems) = preProject
+		communications\README.md = communications\README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BE72F219-67F3-4736-9821-CD53600E75EC}"
 	ProjectSection(SolutionItems) = preProject
@@ -20,9 +23,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Falc.Communications.Infrastructure", "communications\src\Falc.Communications.Infrastructure\Falc.Communications.Infrastructure.csproj", "{23D192D9-1A5E-4575-909D-FA4F2EF28710}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution-items", "solution-items", "{3AD9F7D7-C3A8-43EA-B8F5-087506F40B46}"
-    ProjectSection(SolutionItems) = preProject
+				ProjectSection(SolutionItems) = preProject
 		../.gitignore = ../.gitignore
-	EndProjectSection
+				EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
