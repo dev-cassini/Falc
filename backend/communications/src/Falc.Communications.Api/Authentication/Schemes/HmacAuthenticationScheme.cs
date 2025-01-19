@@ -31,15 +31,14 @@ public static class HmacAuthenticationScheme
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-            var oneAndOnlyOneAuthenticationHeader = Request.Headers.Authorization.Count == 1;
-            var authenticationSchemeIsHmac = Request.Headers.Authorization.SingleOrDefault()?.StartsWith("HMAC-SHA256") ?? false;
-            if (oneAndOnlyOneAuthenticationHeader is false || authenticationSchemeIsHmac is false)
+            var hmacAuthenticationHeader = Request.Headers.Authorization.FirstOrDefault(x => x?.StartsWith("HMAC-SHA256") ?? false);
+            if (hmacAuthenticationHeader is null)
             {
                 Response.StatusCode = StatusCodes.Status401Unauthorized;
                 return AuthenticateResult.Fail("HMAC-SHA256 header is missing.");
             }
 
-            var actualHmacSignature = Request.Headers.Authorization.Single()?.Split(" ").Last();
+            var actualHmacSignature = hmacAuthenticationHeader.Split(" ").Last();
             if (actualHmacSignature is null or "")
             {
                 Response.StatusCode = StatusCodes.Status403Forbidden;
