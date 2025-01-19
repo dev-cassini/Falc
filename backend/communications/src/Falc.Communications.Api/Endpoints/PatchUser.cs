@@ -23,10 +23,10 @@ public static class PatchUserEndpoint
     [Authorize(AuthenticationSchemes = HmacAuthenticationScheme.Name)]
     private static async Task<IResult> Handler(
         PatchUser.Command command,
-        PatchUser.CommandHandler patchUserCommandHandler,
+        MediatR.ISender sender,
         CancellationToken cancellationToken)
     {
-        await patchUserCommandHandler.Handle(command, cancellationToken);
+        await sender.Send(command, cancellationToken);
         return Results.NoContent();
     }
 }
