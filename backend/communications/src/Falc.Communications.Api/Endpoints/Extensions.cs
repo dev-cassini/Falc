@@ -8,6 +8,7 @@ public static class Extensions
         
         webApplication
             .RegisterGetMyUserEndpoint()
+            .RegisterPatchMyUserEndpoint()
             .RegisterGetUserEndpoint()
             .RegisterPatchUserEndpoint();
 
