@@ -10,8 +10,4 @@
       <ProjectReference Include="..\Falc.Communications.Domain\Falc.Communications.Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Include="MediatR" />
-    </ItemGroup>
-
 </Project>

@@ -1,3 +1,4 @@
+using Falc.Communications.Application.Commands;
 using Falc.Communications.Application.Queries;
 using Falc.Communications.Domain.Repositories;
 using Falc.Communications.Infrastructure.EntityFramework.Queries;
@@ -24,6 +25,7 @@ internal static class Extensions
                 });
             })
             .AddEfRepositories()
+            .AddCommandHandlers()
             .AddEfQueries();
 
         return serviceCollection;
@@ -42,6 +44,15 @@ internal static class Extensions
     {
         serviceCollection
             .AddScoped<IUserRepository, EfUserRepository>();
+
+        return serviceCollection;
+    }
+
+    private static IServiceCollection AddCommandHandlers(this IServiceCollection serviceCollection)
+    {
+        serviceCollection
+            .AddScoped<CreateUser.ICommandHandler, CreateUser.CommandHandler>()
+            .AddScoped<PatchUser.ICommandHandler, PatchUser.CommandHandler>();
 
         return serviceCollection;
     }

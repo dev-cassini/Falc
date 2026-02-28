@@ -22,11 +22,13 @@ public static class PatchUserEndpoint
 
     [Authorize(AuthenticationSchemes = HmacAuthenticationScheme.Name)]
     private static async Task<IResult> Handler(
-        PatchUser.Command command,
-        MediatR.ISender sender,
+        Guid userId,
+        PatchUser.MarketingPreferencesDto marketingPreferences,
+        PatchUser.ICommandHandler patchUserCommandHandler,
         CancellationToken cancellationToken)
     {
-        await sender.Send(command, cancellationToken);
+        var command = new PatchUser.Command(userId, marketingPreferences);
+        await patchUserCommandHandler.ExecuteAsync(command, cancellationToken);
         return Results.NoContent();
     }
 }

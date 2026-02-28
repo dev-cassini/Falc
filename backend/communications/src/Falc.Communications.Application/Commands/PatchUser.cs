@@ -1,12 +1,16 @@
 using Falc.Communications.Domain.Repositories;
-using MediatR;
 
 namespace Falc.Communications.Application.Commands;
 
 public static class PatchUser
 {
     public record MarketingPreferencesDto(bool Email, bool Phone, bool Sms);
-    public record Command(Guid Id, MarketingPreferencesDto MarketingPreferences) : IRequest;
+    public record Command(Guid Id, MarketingPreferencesDto MarketingPreferences);
+
+    public interface ICommandHandler
+    {
+        Task ExecuteAsync(Command command, CancellationToken cancellationToken);
+    }
 
     public static class Exceptions
     {
@@ -16,9 +20,9 @@ public static class PatchUser
     public class CommandHandler(
         IUserRepository userRepository,
         IUnitOfWork unitOfWork) 
-        : IRequestHandler<Command>
+        : ICommandHandler
     {
-        public async Task Handle(Command command, CancellationToken cancellationToken)
+        public async Task ExecuteAsync(Command command, CancellationToken cancellationToken)
         {
             var user = await userRepository.GetAsync(command.Id, cancellationToken);
             if (user is null)

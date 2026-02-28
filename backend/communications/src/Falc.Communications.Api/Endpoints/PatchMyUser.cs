@@ -20,8 +20,8 @@ public static class PatchMyUserEndpoint
     }
     
     private static async Task<IResult> Handler(
-        PatchUser.Command request,
-        MediatR.ISender sender,
+        PatchUser.MarketingPreferencesDto marketingPreferences,
+        PatchUser.ICommandHandler patchUserCommandHandler,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
@@ -36,7 +36,8 @@ public static class PatchMyUserEndpoint
             return Results.NotFound($"User sub claim value is not a guid: {sub}");
         }
         
-        await sender.Send(request, cancellationToken);
+        var command = new PatchUser.Command(userId, marketingPreferences);
+        await patchUserCommandHandler.ExecuteAsync(command, cancellationToken);
         return Results.NoContent();
     }
 }
