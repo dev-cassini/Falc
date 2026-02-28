@@ -54,6 +54,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "traefik", "traefik", "{5660
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Falc.Communications.Api.IntegrationTests.Auth", "communications\test\auth\dotnet\Falc.Communications.Api.IntegrationTests.Auth\Falc.Communications.Api.IntegrationTests.Auth.csproj", "{DFED6150-D096-4FBF-B849-C29ABC3CFA63}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "identity-provider-proxy", "identity-provider-proxy", "{8E2E0D3A-48F2-4B13-8F9D-51F3E3D8E261}"
+	ProjectSection(SolutionItems) = preProject
+		identity-provider-proxy\README.md = identity-provider-proxy\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FA11B998-4E19-4CC4-AE7C-36E91D9496F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Falc.IdentityProvider.Api.Proxy", "identity-provider-proxy\src\Falc.IdentityProvider.Api.Proxy\Falc.IdentityProvider.Api.Proxy.csproj", "{7A9E5F8B-9548-4F09-A8E9-1BC8F2A0D4C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -92,6 +101,10 @@ Global
 		{DFED6150-D096-4FBF-B849-C29ABC3CFA63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFED6150-D096-4FBF-B849-C29ABC3CFA63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFED6150-D096-4FBF-B849-C29ABC3CFA63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A9E5F8B-9548-4F09-A8E9-1BC8F2A0D4C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A9E5F8B-9548-4F09-A8E9-1BC8F2A0D4C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A9E5F8B-9548-4F09-A8E9-1BC8F2A0D4C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A9E5F8B-9548-4F09-A8E9-1BC8F2A0D4C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BE72F219-67F3-4736-9821-CD53600E75EC} = {2BD31107-E486-4E10-BF6A-427444D584F8}
@@ -105,5 +118,7 @@ Global
 		{C07367AC-632C-4BF6-ACB1-E69C387C07A6} = {3A92A941-422E-41D3-BACC-F08DF75B0534}
 		{56600427-2D23-4589-86C2-02F02B41BCBD} = {09A0B5AA-CE55-4547-A18D-A8BA4478FDA4}
 		{DFED6150-D096-4FBF-B849-C29ABC3CFA63} = {F0077DEE-CC1C-4D07-B9C4-5DEC62B31894}
+		{FA11B998-4E19-4CC4-AE7C-36E91D9496F7} = {8E2E0D3A-48F2-4B13-8F9D-51F3E3D8E261}
+		{7A9E5F8B-9548-4F09-A8E9-1BC8F2A0D4C6} = {FA11B998-4E19-4CC4-AE7C-36E91D9496F7}
 	EndGlobalSection
 EndGlobal
