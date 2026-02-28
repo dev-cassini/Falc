@@ -4,24 +4,41 @@ public static class TestJwtTokenFactory
 {
     public static string CreateValidToken(Guid userId)
     {
-        return CreateToken(userId, TestJwtAuthHandler.SigningKey);
+        var claims = new List<Claim>
+        {
+            new("sub", userId.ToString()),
+            new(ClaimTypes.Role, "admin")
+        };
+
+        return CreateToken(claims, TestJwtAuthHandler.SigningKey);
     }
 
-    public static string CreateInvalidToken(Guid userId)
+    public static string CreateValidTokenWithoutRole(Guid userId)
     {
-        return CreateToken(userId, "a-different-signing-key-that-should-fail-validation");
-    }
-
-    private static string CreateToken(Guid userId, string signingKey)
-    {
-        var credentials = new SigningCredentials(
-            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey)),
-            SecurityAlgorithms.HmacSha256);
-
         var claims = new List<Claim>
         {
             new("sub", userId.ToString())
         };
+
+        return CreateToken(claims, TestJwtAuthHandler.SigningKey);
+    }
+
+    public static string CreateInvalidToken(Guid userId)
+    {
+        var claims = new List<Claim>
+        {
+            new("sub", userId.ToString()),
+            new(ClaimTypes.Role, "admin")
+        };
+
+        return CreateToken(claims, "a-different-signing-key-that-should-fail-validation");
+    }
+
+    private static string CreateToken(IEnumerable<Claim> claims, string signingKey)
+    {
+        var credentials = new SigningCredentials(
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey)),
+            SecurityAlgorithms.HmacSha256);
 
         var jwt = new JwtSecurityToken(
             issuer: TestJwtAuthHandler.ValidIssuer,

@@ -65,6 +65,18 @@ public class SearchUsersEndpointTests
         Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
     }
 
+    [Test]
+    public async Task SearchUsers_Returns403_WhenAdminRoleClaimIsMissing()
+    {
+        SetBearerToken(TestJwtTokenFactory.CreateValidTokenWithoutRole(Guid.NewGuid()));
+
+        var response = await _client.PostAsJsonAsync(
+            "/api/communications/users/search",
+            new { emailAddress = "a@b.com", pageNumber = 1, pageSize = 25 });
+
+        Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
+    }
+
     [TestCase(0)]
     [TestCase(-1)]
     public async Task SearchUsers_Returns400_WhenPageNumberIsLessThanOne(int pageNumber)

@@ -1,5 +1,7 @@
 using Falc.Communications.Application.Queries;
 using Falc.Communications.Domain.Model;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Security.Claims;
 
 namespace Falc.Communications.Api.Endpoints;
 
@@ -11,7 +13,13 @@ public static class SearchUsersEndpoint
     {
         webApplication
             .MapPost("users/search", Handler)
-            .RequireAuthorization(builder => builder.RequireAuthenticatedUser())
+            .RequireAuthorization(builder =>
+            {
+                builder
+                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser()
+                    .RequireClaim(ClaimTypes.Role, "admin");
+            })
             .WithTags(nameof(User))
             .Produces(StatusCodes.Status200OK, typeof(SearchUsers.Result))
             .ProducesValidationProblem()

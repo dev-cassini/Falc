@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+
 namespace Falc.Communications.Api.ComponentTests.TestInfrastructure;
 
 public class CommunicationsApiFactory(string postgresConnectionString) : WebApplicationFactory<Program>
@@ -24,10 +26,10 @@ public class CommunicationsApiFactory(string postgresConnectionString) : WebAppl
             // Replace production auth with deterministic test JWT validation.
             services.AddAuthentication(options =>
                 {
-                    options.DefaultAuthenticateScheme = TestJwtAuthHandler.Scheme;
-                    options.DefaultChallengeScheme = TestJwtAuthHandler.Scheme;
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
-                .AddScheme<AuthenticationSchemeOptions, TestJwtAuthHandler>(TestJwtAuthHandler.Scheme, _ => { });
+                .AddScheme<AuthenticationSchemeOptions, TestJwtAuthHandler>(JwtBearerDefaults.AuthenticationScheme, _ => { });
 
             services.RemoveMassTransitHostedService();
             services.AddMassTransitTestHarness(configurator =>
