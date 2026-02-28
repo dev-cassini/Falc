@@ -10,7 +10,7 @@ public class EfSearchUsersQueryHandler(CommunicationsDbContext dbContext) : Sear
         var normalizedEmailAddress = request.EmailAddress.Trim().ToLowerInvariant();
         var query = dbContext.Users
             .AsNoTracking()
-            .Where(x => x.EmailAddress.Contains(normalizedEmailAddress));
+            .Where(x => x.EmailAddress == normalizedEmailAddress);
 
         var totalCount = await query.CountAsync(cancellationToken);
 
