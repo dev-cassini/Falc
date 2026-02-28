@@ -10,7 +10,8 @@ public static class Extensions
             .RegisterGetMyUserEndpoint()
             .RegisterPatchMyUserEndpoint()
             .RegisterGetUserEndpoint()
-            .RegisterPatchUserEndpoint();
+            .RegisterPatchUserEndpoint()
+            .RegisterSearchUsersEndpoint();
 
         return webApplication;
     }

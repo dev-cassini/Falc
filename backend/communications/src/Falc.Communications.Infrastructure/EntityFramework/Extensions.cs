@@ -49,7 +49,8 @@ internal static class Extensions
     private static IServiceCollection AddEfQueries(this IServiceCollection serviceCollection)
     {
         serviceCollection
-            .AddScoped<GetUser.IQueryHandler, EfGetUserQueryHandler>();
+            .AddScoped<GetUser.IQueryHandler, EfGetUserQueryHandler>()
+            .AddScoped<SearchUsers.IQueryHandler, EfSearchUsersQueryHandler>();
 
         return serviceCollection;
     }
