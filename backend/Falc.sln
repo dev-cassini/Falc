@@ -10,9 +10,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BE72F219-67F3-4736-9821-CD53600E75EC}"
 	ProjectSection(SolutionItems) = preProject
 		communications\src\docker-compose.yml = communications\src\docker-compose.yml
+		communications\src\Directory.Packages.props = communications\src\Directory.Packages.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{F0077DEE-CC1C-4D07-B9C4-5DEC62B31894}"
+	ProjectSection(SolutionItems) = preProject
+		communications\test\Directory.Packages.props = communications\test\Directory.Packages.props
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Falc.Communications.Api.ComponentTests", "communications\test\Falc.Communications.Api.ComponentTests\Falc.Communications.Api.ComponentTests.csproj", "{F1A5094D-8D4C-4279-B533-9D34CE1D5479}"
 EndProject
