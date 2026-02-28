@@ -5,7 +5,7 @@ namespace Falc.Communications.Api.Endpoints;
 
 public static class SearchUsersEndpoint
 {
-    public record Request(string EmailAddress, int PageNumber = 1, int PageSize = 25);
+    public record Request(string? EmailAddress = null, int PageNumber = 1, int PageSize = 25);
     
     public static WebApplication RegisterSearchUsersEndpoint(this WebApplication webApplication)
     {
@@ -28,11 +28,6 @@ public static class SearchUsersEndpoint
     {
         var errors = new Dictionary<string, string[]>();
 
-        if (string.IsNullOrWhiteSpace(request.EmailAddress))
-        {
-            errors[nameof(request.EmailAddress)] = ["EmailAddress is required."];
-        }
-
         if (request.PageNumber < 1)
         {
             errors[nameof(request.PageNumber)] = ["PageNumber must be greater than 0."];
@@ -46,6 +41,17 @@ public static class SearchUsersEndpoint
         if (errors.Count > 0)
         {
             return Results.ValidationProblem(errors);
+        }
+
+        if (string.IsNullOrWhiteSpace(request.EmailAddress))
+        {
+            var emptyResult = new SearchUsers.Result(
+                Array.Empty<SearchUsers.UserDto>(),
+                request.PageNumber,
+                request.PageSize,
+                0);
+
+            return Results.Ok(emptyResult);
         }
 
         var query = new SearchUsers.Request(
