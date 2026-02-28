@@ -11,14 +11,14 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Falc.Identity.Contracts" Version="1.1.0" />
-      <PackageReference Include="MassTransit.EntityFrameworkCore" Version="8.3.2" />
-      <PackageReference Include="MassTransit.RabbitMQ" Version="8.3.2" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.0">
+      <PackageReference Include="Falc.Identity.Contracts" />
+      <PackageReference Include="MassTransit.EntityFrameworkCore" />
+      <PackageReference Include="MassTransit.RabbitMQ" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
     </ItemGroup>
 
     <ItemGroup>
