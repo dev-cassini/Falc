@@ -1,4 +1,4 @@
-namespace Falc.Communications.Api.IntegrationTests;
+namespace Falc.Communications.Api.ComponentTests;
 
 public class Tests
 {

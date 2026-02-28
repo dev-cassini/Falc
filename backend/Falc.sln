@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BE72F219-67F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{F0077DEE-CC1C-4D07-B9C4-5DEC62B31894}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Falc.Communications.Api.IntegrationTests", "communications\test\Falc.Communications.Api.IntegrationTests\Falc.Communications.Api.IntegrationTests.csproj", "{F1A5094D-8D4C-4279-B533-9D34CE1D5479}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Falc.Communications.Api.ComponentTests", "communications\test\Falc.Communications.Api.ComponentTests\Falc.Communications.Api.ComponentTests.csproj", "{F1A5094D-8D4C-4279-B533-9D34CE1D5479}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Falc.Communications.Domain", "communications\src\Falc.Communications.Domain\Falc.Communications.Domain.csproj", "{1248850C-F51B-4F61-828B-BF3F2D92895E}"
 EndProject
@@ -26,6 +26,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution-items", "solution-
 				ProjectSection(SolutionItems) = preProject
 		../.gitignore = ../.gitignore
 				EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "e2e", "e2e", "{3A92A941-422E-41D3-BACC-F08DF75B0534}"
+	ProjectSection(SolutionItems) = preProject
+		communications\README.md = communications\README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Falc.E2E.CustomerPortal", "..\e2e\Falc.E2E.CustomerPortal\Falc.E2E.CustomerPortal.csproj", "{C07367AC-632C-4BF6-ACB1-E69C387C07A6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infrastructure", "infrastructure", "{09A0B5AA-CE55-4547-A18D-A8BA4478FDA4}"
+	ProjectSection(SolutionItems) = preProject
+		..\infrastructure\docker-compose.yml = ..\infrastructure\docker-compose.yml
+		..\infrastructure\README.md = ..\infrastructure\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "traefik", "traefik", "{56600427-2D23-4589-86C2-02F02B41BCBD}"
+	ProjectSection(SolutionItems) = preProject
+		..\infrastructure\traefik\dynamic.yml = ..\infrastructure\traefik\dynamic.yml
+		..\infrastructure\traefik\static.yml = ..\infrastructure\traefik\static.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +72,10 @@ Global
 		{23D192D9-1A5E-4575-909D-FA4F2EF28710}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23D192D9-1A5E-4575-909D-FA4F2EF28710}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23D192D9-1A5E-4575-909D-FA4F2EF28710}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C07367AC-632C-4BF6-ACB1-E69C387C07A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C07367AC-632C-4BF6-ACB1-E69C387C07A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C07367AC-632C-4BF6-ACB1-E69C387C07A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C07367AC-632C-4BF6-ACB1-E69C387C07A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BE72F219-67F3-4736-9821-CD53600E75EC} = {2BD31107-E486-4E10-BF6A-427444D584F8}
@@ -62,5 +85,7 @@ Global
 		{1248850C-F51B-4F61-828B-BF3F2D92895E} = {BE72F219-67F3-4736-9821-CD53600E75EC}
 		{64043026-B69D-4879-B135-69AEBC177E11} = {BE72F219-67F3-4736-9821-CD53600E75EC}
 		{23D192D9-1A5E-4575-909D-FA4F2EF28710} = {BE72F219-67F3-4736-9821-CD53600E75EC}
+		{C07367AC-632C-4BF6-ACB1-E69C387C07A6} = {3A92A941-422E-41D3-BACC-F08DF75B0534}
+		{56600427-2D23-4589-86C2-02F02B41BCBD} = {09A0B5AA-CE55-4547-A18D-A8BA4478FDA4}
 	EndGlobalSection
 EndGlobal
