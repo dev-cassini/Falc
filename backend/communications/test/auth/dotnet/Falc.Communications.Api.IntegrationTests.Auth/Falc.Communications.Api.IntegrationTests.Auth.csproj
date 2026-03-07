@@ -22,4 +22,9 @@
         </PackageReference>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\..\..\identity-provider-proxy\src\Falc.IdentityProviderProxy.Api.Client\Falc.IdentityProviderProxy.Api.Client.csproj" />
+      <ProjectReference Include="..\..\..\..\src\Falc.Communications.Api.Client\Falc.Communications.Api.Client.csproj" />
+    </ItemGroup>
+
 </Project>

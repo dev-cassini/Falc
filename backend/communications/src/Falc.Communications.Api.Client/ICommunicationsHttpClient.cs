@@ -4,5 +4,6 @@ namespace Falc.Communications.Api.Client;
 
 public interface ICommunicationsHttpClient
 {
+    ICommunicationsHttpClient WithBearerToken(string? token);
     Task<HttpResponseMessage> SearchUsersAsync(SearchUsersRequest request, CancellationToken cancellationToken);
 }
