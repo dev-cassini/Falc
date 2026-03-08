@@ -11,7 +11,7 @@ public sealed class AuthIntegrationTestSettings
     public string IdpImpersonationGrantType { get; init; } = "urn:ietf:params:oauth:grant-type:token-exchange";
     public string IdpImpersonationFieldName { get; init; } = "subject";
     public required string AdminUserIdentifier { get; init; }
-    public required string NonAdminUserIdentifier { get; init; }
+    public required string CustomerUserIdentifier { get; init; }
     public int TimeoutSeconds { get; init; } = 30;
     public string EnvironmentName { get; init; } = "dev";
     public string? AwsSecretId { get; init; }
@@ -60,9 +60,9 @@ public sealed class AuthIntegrationTestSettings
             throw new InvalidOperationException("AdminUserIdentifier is required.");
         }
 
-        if (string.IsNullOrWhiteSpace(NonAdminUserIdentifier))
+        if (string.IsNullOrWhiteSpace(CustomerUserIdentifier))
         {
-            throw new InvalidOperationException("NonAdminUserIdentifier is required.");
+            throw new InvalidOperationException("CustomerUserIdentifier is required.");
         }
     }
 }

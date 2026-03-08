@@ -12,9 +12,9 @@ public static class CommunicationsHttpClientAuthExtensions
         return client;
     }
 
-    public static async Task<CommunicationsHttpClient> AuthenticateAsNonAdmin(this CommunicationsHttpClient client, CancellationToken cancellationToken = default)
+    public static async Task<CommunicationsHttpClient> AuthenticateAsCustomer(this CommunicationsHttpClient client, CancellationToken cancellationToken = default)
     {
-        var token = await AuthIntegrationTestContext.TokenClient.GetNonAdminTokenAsync(cancellationToken);
+        var token = await AuthIntegrationTestContext.TokenClient.GetCustomerTokenAsync(cancellationToken);
         client.WithBearerToken(token);
         return client;
     }

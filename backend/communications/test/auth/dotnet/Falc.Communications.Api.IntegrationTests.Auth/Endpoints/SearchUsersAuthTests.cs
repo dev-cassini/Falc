@@ -11,7 +11,7 @@ public class SearchUsersAuthTests : EndpointTestBase
     [Category("integration")]
     [Category("authn")]
     [Category("communications")]
-    public async Task SearchUsers_Returns401_WhenTokenIsMissing()
+    public async Task GivenNoBearerToken_WhenSearchUsersCalled_ThenReturns401()
     {
         using var response = await CommunicationsHttpClient
             .WithBearerToken(null)
@@ -24,7 +24,7 @@ public class SearchUsersAuthTests : EndpointTestBase
     [Category("integration")]
     [Category("authn")]
     [Category("communications")]
-    public async Task SearchUsers_Returns401_WhenTokenIsInvalid()
+    public async Task GivenInvalidBearerToken_WhenSearchUsersCalled_ThenReturns401()
     {
         using var response = await CommunicationsHttpClient
             .WithBearerToken("this-is-not-a-valid-jwt")
@@ -37,10 +37,10 @@ public class SearchUsersAuthTests : EndpointTestBase
     [Category("integration")]
     [Category("authz")]
     [Category("communications")]
-    public async Task SearchUsers_Returns403_WhenRoleIsMissing()
+    public async Task GivenCustomerUserToken_WhenSearchUsersCalled_ThenReturns403()
     {
         using var response = await CommunicationsHttpClient
-            .AuthenticateAsNonAdmin()
+            .AuthenticateAsCustomer()
             .SearchUsersAsync(new SearchUsersRequest(PageNumber: 1, PageSize: 25), CancellationToken.None);
 
         Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
@@ -50,7 +50,7 @@ public class SearchUsersAuthTests : EndpointTestBase
     [Category("integration")]
     [Category("authz")]
     [Category("communications")]
-    public async Task SearchUsers_Returns200_WhenAdminRoleIsPresent()
+    public async Task GivenAdminUserToken_WhenSearchUsersCalled_ThenReturns200()
     {
         using var response = await CommunicationsHttpClient
             .AuthenticateAsAdmin()

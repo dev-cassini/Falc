@@ -32,13 +32,12 @@ Top-level JSON keys expected from AWS secret or local settings file:
 - `idpClientId`
 - `idpClientSecret`
 - `adminUserIdentifier`
-- `nonAdminUserIdentifier`
+- `customerUserIdentifier`
 
 Optional keys:
 
 - `idpImpersonationGrantType` (default: `urn:ietf:params:oauth:grant-type:token-exchange`)
 - `idpImpersonationFieldName` (default: `subject`)
-- `requiredRole` (default: `admin`)
 - `timeoutSeconds` (default: `30`)
 - `environmentName` (default: `dev`)
 - `awsSecretId`

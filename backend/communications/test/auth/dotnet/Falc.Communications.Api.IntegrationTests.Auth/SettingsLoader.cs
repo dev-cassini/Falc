@@ -40,7 +40,9 @@ public static class SettingsLoader
             IdpImpersonationGrantType = GetOrDefault(source, "idpImpersonationGrantType", "urn:ietf:params:oauth:grant-type:token-exchange"),
             IdpImpersonationFieldName = GetOrDefault(source, "idpImpersonationFieldName", "subject"),
             AdminUserIdentifier = GetRequired(source, "adminUserIdentifier"),
-            NonAdminUserIdentifier = GetRequired(source, "nonAdminUserIdentifier"),
+            CustomerUserIdentifier = GetRequired(source, source.ContainsKey("customerUserIdentifier")
+                ? "customerUserIdentifier"
+                : "nonAdminUserIdentifier"),
             TimeoutSeconds = GetIntOrDefault(source, "timeoutSeconds", 30),
             EnvironmentName = GetOrDefault(source, "environmentName", environmentName),
             AwsSecretId = GetOrDefault(source, "awsSecretId", secretId),
@@ -63,6 +65,7 @@ public static class SettingsLoader
         AddIfPresent(env, "idpImpersonationGrantType", "FALC_AUTH_IDP_IMPERSONATION_GRANT_TYPE");
         AddIfPresent(env, "idpImpersonationFieldName", "FALC_AUTH_IDP_IMPERSONATION_FIELD_NAME");
         AddIfPresent(env, "adminUserIdentifier", "FALC_AUTH_ADMIN_USER_IDENTIFIER");
+        AddIfPresent(env, "customerUserIdentifier", "FALC_AUTH_CUSTOMER_USER_IDENTIFIER");
         AddIfPresent(env, "nonAdminUserIdentifier", "FALC_AUTH_NON_ADMIN_USER_IDENTIFIER");
         AddIfPresent(env, "requiredRole", "FALC_AUTH_REQUIRED_ROLE");
         AddIfPresent(env, "timeoutSeconds", "FALC_AUTH_TIMEOUT_SECONDS");
