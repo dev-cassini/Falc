@@ -15,17 +15,16 @@ Scenarios:
 - `403` when role claim is missing
 - `200` when role claim contains `admin`
 
-## Config Precedence
+## Config Loading
 
-Settings are loaded in this order (highest to lowest priority):
+Settings are loaded from local JSON only:
 
-1. `appsettings.local.json` (optional)
-2. Environment variables (`FALC_AUTH_*`)
-3. AWS Secrets Manager (`falc/communications/auth-tests/dev` by default)
+- `appsettings.local.json` in current working directory, then project directory
+- or file path in `FALC_AUTH_LOCAL_SETTINGS_PATH`
 
 ## Required Settings
 
-Top-level JSON keys expected from AWS secret or local settings file:
+Top-level JSON keys expected from local settings file:
 
 - `baseUrl`
 - `idpTokenUrl`
@@ -36,13 +35,15 @@ Top-level JSON keys expected from AWS secret or local settings file:
 
 Optional keys:
 
-- `idpImpersonationGrantType` (default: `urn:ietf:params:oauth:grant-type:token-exchange`)
+- `idpDelegationPasswordGrantUsername` (default: `admin`)
+- `idpDelegationPasswordGrantPassword` (default: `Pa$$word123`)
+- `idpPasswordGrantScope` (default: `openid profile email`)
+- `idpImpersonationGrantType` (default: `delegation`)
 - `idpImpersonationFieldName` (default: `subject`)
 - `timeoutSeconds` (default: `30`)
 - `environmentName` (default: `dev`)
-- `awsSecretId`
-- `awsRegion` (default: `eu-west-2`)
-- `awsProfile`
+
+Use `appsettings.local.example.json` as a template to create your local settings file.
 
 ## Run
 

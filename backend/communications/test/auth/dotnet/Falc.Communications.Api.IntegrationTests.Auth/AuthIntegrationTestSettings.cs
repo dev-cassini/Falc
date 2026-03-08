@@ -8,15 +8,15 @@ public sealed class AuthIntegrationTestSettings
     public required string IdpTokenUrl { get; init; }
     public required string IdpClientId { get; init; }
     public required string IdpClientSecret { get; init; }
-    public string IdpImpersonationGrantType { get; init; } = "urn:ietf:params:oauth:grant-type:token-exchange";
+    public string IdpDelegationPasswordGrantUsername { get; init; } = "admin";
+    public string IdpDelegationPasswordGrantPassword { get; init; } = "Pa$$word123";
+    public string IdpPasswordGrantScope { get; init; } = "openid profile email";
+    public string IdpImpersonationGrantType { get; init; } = "delegation";
     public string IdpImpersonationFieldName { get; init; } = "subject";
     public required string AdminUserIdentifier { get; init; }
     public required string CustomerUserIdentifier { get; init; }
     public int TimeoutSeconds { get; init; } = 30;
     public string EnvironmentName { get; init; } = "dev";
-    public string? AwsSecretId { get; init; }
-    public string? AwsRegion { get; init; }
-    public string? AwsProfile { get; init; }
 
     public static AuthIntegrationTestSettings FromJson(string json)
     {

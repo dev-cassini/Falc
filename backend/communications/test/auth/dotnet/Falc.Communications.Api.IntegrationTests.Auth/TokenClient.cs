@@ -58,6 +58,20 @@ public sealed class TokenClient(HttpClient httpClient, AuthIntegrationTestSettin
 
     private async Task<string> GetTokenAsync(string userIdentifier, CancellationToken cancellationToken)
     {
+        if (string.Equals(
+                settings.IdpImpersonationGrantType,
+                "delegation",
+                StringComparison.OrdinalIgnoreCase))
+        {
+            var sourceToken = await GetPasswordGrantTokenAsync(cancellationToken);
+            return await GetDelegationTokenAsync(sourceToken, userIdentifier, cancellationToken);
+        }
+
+        return await GetTokenExchangeTokenAsync(userIdentifier, cancellationToken);
+    }
+
+    private async Task<string> GetTokenExchangeTokenAsync(string userIdentifier, CancellationToken cancellationToken)
+    {
         var request = new Dictionary<string, string>
         {
             ["grant_type"] = settings.IdpImpersonationGrantType,
@@ -66,6 +80,69 @@ public sealed class TokenClient(HttpClient httpClient, AuthIntegrationTestSettin
             [settings.IdpImpersonationFieldName] = userIdentifier
         };
 
+        return await SendTokenRequestAsync(request, userIdentifier, cancellationToken);
+    }
+
+    private async Task<string> GetDelegationTokenAsync(string sourceToken, string userIdentifier, CancellationToken cancellationToken)
+    {
+        var request = new Dictionary<string, string>
+        {
+            ["grant_type"] = settings.IdpImpersonationGrantType,
+            ["client_id"] = settings.IdpClientId,
+            ["client_secret"] = settings.IdpClientSecret,
+            ["token"] = sourceToken
+        };
+
+        if (string.IsNullOrWhiteSpace(settings.IdpImpersonationFieldName) is false)
+        {
+            request[settings.IdpImpersonationFieldName] = userIdentifier;
+        }
+
+        return await SendTokenRequestAsync(request, userIdentifier, cancellationToken);
+    }
+
+    private async Task<string> GetPasswordGrantTokenAsync(CancellationToken cancellationToken)
+    {
+        var request = new Dictionary<string, string>
+        {
+            ["grant_type"] = "password",
+            ["client_id"] = settings.IdpClientId,
+            ["client_secret"] = settings.IdpClientSecret,
+            ["username"] = settings.IdpDelegationPasswordGrantUsername,
+            ["password"] = settings.IdpDelegationPasswordGrantPassword
+        };
+
+        if (string.IsNullOrWhiteSpace(settings.IdpPasswordGrantScope) is false)
+        {
+            request["scope"] = settings.IdpPasswordGrantScope;
+        }
+
+        using var response = await httpClient.PostAsync(
+            settings.IdpTokenUrl,
+            new FormUrlEncodedContent(request),
+            cancellationToken);
+
+        var content = await response.Content.ReadAsStringAsync(cancellationToken);
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new InvalidOperationException(
+                $"Failed to fetch delegation source token. Status={(int)response.StatusCode}, Body={content}");
+        }
+
+        var tokenResponse = await response.Content.ReadFromJsonAsync<TokenResponse>(cancellationToken: cancellationToken);
+        if (string.IsNullOrWhiteSpace(tokenResponse?.AccessToken))
+        {
+            throw new InvalidOperationException("IdP password grant response did not include access_token.");
+        }
+
+        return tokenResponse.AccessToken;
+    }
+
+    private async Task<string> SendTokenRequestAsync(
+        Dictionary<string, string> request,
+        string userIdentifier,
+        CancellationToken cancellationToken)
+    {
         using var response = await httpClient.PostAsync(
             settings.IdpTokenUrl,
             new FormUrlEncodedContent(request),
