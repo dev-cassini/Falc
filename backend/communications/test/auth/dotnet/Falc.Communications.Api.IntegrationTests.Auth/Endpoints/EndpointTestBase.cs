@@ -1,8 +1,8 @@
 using Falc.Communications.Api.Client;
 
-namespace Falc.Communications.Api.IntegrationTests.Auth;
+namespace Falc.Communications.Api.IntegrationTests.Auth.Endpoints;
 
-public abstract class TestBase
+public abstract class EndpointTestBase
 {
     protected HttpClient HttpClient { get; private set; } = null!;
     protected TokenClient TokenClient { get; private set; } = null!;

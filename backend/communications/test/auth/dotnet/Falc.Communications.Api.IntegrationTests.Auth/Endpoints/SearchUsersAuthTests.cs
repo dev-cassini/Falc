@@ -1,11 +1,11 @@
-using Falc.Communications.Api.Client.Contracts;
 using System.Net;
 using System.Net.Http.Json;
+using Falc.Communications.Api.Client.Contracts;
 
-namespace Falc.Communications.Api.IntegrationTests.Auth;
+namespace Falc.Communications.Api.IntegrationTests.Auth.Endpoints;
 
 [TestFixture]
-public class SearchUsersAuthIntegrationTests : TestBase
+public class SearchUsersAuthTests : EndpointTestBase
 {
     [Test]
     [Category("integration")]

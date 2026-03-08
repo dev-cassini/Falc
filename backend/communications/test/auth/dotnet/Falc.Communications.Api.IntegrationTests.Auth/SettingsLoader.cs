@@ -41,7 +41,6 @@ public static class SettingsLoader
             IdpImpersonationFieldName = GetOrDefault(source, "idpImpersonationFieldName", "subject"),
             AdminUserIdentifier = GetRequired(source, "adminUserIdentifier"),
             NonAdminUserIdentifier = GetRequired(source, "nonAdminUserIdentifier"),
-            RequiredRole = GetOrDefault(source, "requiredRole", "admin"),
             TimeoutSeconds = GetIntOrDefault(source, "timeoutSeconds", 30),
             EnvironmentName = GetOrDefault(source, "environmentName", environmentName),
             AwsSecretId = GetOrDefault(source, "awsSecretId", secretId),

@@ -12,7 +12,6 @@ public sealed class AuthIntegrationTestSettings
     public string IdpImpersonationFieldName { get; init; } = "subject";
     public required string AdminUserIdentifier { get; init; }
     public required string NonAdminUserIdentifier { get; init; }
-    public string RequiredRole { get; init; } = "admin";
     public int TimeoutSeconds { get; init; } = 30;
     public string EnvironmentName { get; init; } = "dev";
     public string? AwsSecretId { get; init; }

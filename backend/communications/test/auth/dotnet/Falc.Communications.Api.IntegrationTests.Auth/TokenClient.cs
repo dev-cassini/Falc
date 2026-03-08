@@ -5,14 +5,55 @@ namespace Falc.Communications.Api.IntegrationTests.Auth;
 
 public sealed class TokenClient(HttpClient httpClient, AuthIntegrationTestSettings settings)
 {
+    private readonly SemaphoreSlim _adminTokenLock = new(1, 1);
+    private readonly SemaphoreSlim _nonAdminTokenLock = new(1, 1);
+    private string? _adminToken;
+    private string? _nonAdminToken;
+
     public async Task<string> GetAdminTokenAsync(CancellationToken cancellationToken)
     {
-        return await GetTokenAsync(settings.AdminUserIdentifier, cancellationToken);
+        if (string.IsNullOrWhiteSpace(_adminToken) is false)
+        {
+            return _adminToken;
+        }
+
+        await _adminTokenLock.WaitAsync(cancellationToken);
+        try
+        {
+            if (string.IsNullOrWhiteSpace(_adminToken))
+            {
+                _adminToken = await GetTokenAsync(settings.AdminUserIdentifier, cancellationToken);
+            }
+
+            return _adminToken!;
+        }
+        finally
+        {
+            _adminTokenLock.Release();
+        }
     }
 
     public async Task<string> GetNonAdminTokenAsync(CancellationToken cancellationToken)
     {
-        return await GetTokenAsync(settings.NonAdminUserIdentifier, cancellationToken);
+        if (string.IsNullOrWhiteSpace(_nonAdminToken) is false)
+        {
+            return _nonAdminToken;
+        }
+
+        await _nonAdminTokenLock.WaitAsync(cancellationToken);
+        try
+        {
+            if (string.IsNullOrWhiteSpace(_nonAdminToken))
+            {
+                _nonAdminToken = await GetTokenAsync(settings.NonAdminUserIdentifier, cancellationToken);
+            }
+
+            return _nonAdminToken!;
+        }
+        finally
+        {
+            _nonAdminTokenLock.Release();
+        }
     }
 
     private async Task<string> GetTokenAsync(string userIdentifier, CancellationToken cancellationToken)
